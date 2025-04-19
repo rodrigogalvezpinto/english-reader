@@ -58,7 +58,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
                   </span>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto">
-                  Translation: {getTranslation(word)}
+                   {getTranslation(word)}
                 </PopoverContent>
               </Popover>
             ))}

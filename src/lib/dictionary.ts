@@ -7,7 +7,6 @@
  *   - Dictionary: A class for handling word translations with case-insensitivity.
  */
 
-
 class Dictionary {
   private translations: { [key: string]: string } = {};
 
@@ -54,17 +53,23 @@ class Dictionary {
    * @returns An object containing all words and their translations.
    */
   getAllTranslations(): { [key: string]: string } {
-    return {...this.translations};
+    return { ...this.translations };
   }
 }
 
 const initialGlobalDictionary: { [key: string]: string } = {};
-// const globalDictionary = new Dictionary(initialGlobalDictionary);
 
-async function createGlobalDictionary() {
+async function createGlobalDictionary(): Promise<Dictionary> {
   return new Dictionary(initialGlobalDictionary);
 }
 
-const globalDictionary = await createGlobalDictionary();
+let globalDictionary: Dictionary;
+
+async function initializeDictionary() {
+  globalDictionary = await createGlobalDictionary();
+}
+
+// Initialize the dictionary immediately
+initializeDictionary();
 
 export { Dictionary, globalDictionary };

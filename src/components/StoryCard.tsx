@@ -3,7 +3,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -14,6 +13,7 @@ import {
 } from "@/components/ui/popover";
 import React, { useState } from "react";
 import { Story } from "@/services/story-service";
+import { aDayAtTheParkDictionary } from "@/lib/dictionaries/aDayAtTheParkDictionary";
 
 interface StoryCardProps {
   story: Story;
@@ -29,39 +29,36 @@ const StoryCard: React.FC<StoryCardProps> = ({
   };
 
   const getTranslation = (word: string) => {
-    return story.word_translations[word] || "Translation not found";
+    const lowerCaseWord = word.toLowerCase();
+    return aDayAtTheParkDictionary[lowerCaseWord] || "Translation not found";
   };
 
   return (
     <Card className="mb-4">
       <CardHeader>
         <CardTitle>{story.title}</CardTitle>
-        <CardDescription>
-          Tap on any word to see its translation
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div>
-          <h3 className="text-lg font-semibold mb-2">English</h3>
-          <p>
-            {story.content.split(/\s+/).map((word, index) => (
-              <Popover key={index}>
-                <PopoverTrigger asChild>
+        <Popover>
+          <PopoverTrigger asChild>
+            <CardContent>
+              <h3 className="text-lg font-semibold mb-2">English</h3>
+              <p>
+                {story.content.split(/\s+/).map((word, index) => (
                   <span
+                    key={index}
                     className="cursor-pointer hover:bg-accent/20 rounded-md px-1"
                     onClick={() => handleWordClick(word)}
                   >
                     {word}{" "}
                   </span>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto">
-                   {getTranslation(word)}
-                </PopoverContent>
-              </Popover>
-            ))}
-          </p>
-        </div>
-      </CardContent>
+                ))}
+              </p>
+            </CardContent>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto">
+            {selectedWord && getTranslation(selectedWord)}
+          </PopoverContent>
+        </Popover>
+      </CardHeader>
     </Card>
   );
 };

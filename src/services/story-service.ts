@@ -8,6 +8,8 @@
  *   - getStoryById: Retrieves a single story by its ID.
  */
 
+import {globalDictionary} from '@/lib/dictionary';
+
 export interface Story {
   id: number;
   title: string;
@@ -68,7 +70,11 @@ Por la tarde, comenzó a llover. Sarah y su perro se fueron a casa. Estaban cans
       home: "casa",
       tired: "cansados",
       good: "buen",
-      the: "el-la"
+      it: "eso",
+      was: "era",
+      a: "un",
+      the: "el-la",
+      and: "y"
     },
     read_time: 3,
     image_url: "https://via.placeholder.com/100",
@@ -124,7 +130,15 @@ Tengo diez años. Voy a la escuela todos los días. Me gusta leer libros y jugar
       books: "libros",
       football: "fútbol",
       happy: "feliz",
-      the: "el-la"
+      this: "este",
+      is: "es",
+      my: "mi",
+      there: "hay",
+      are: "son",
+      in: "en",
+      and: "y",
+      me: "yo",
+      i: "yo"
     },
     read_time: 2,
     image_url: "https://via.placeholder.com/100",
@@ -217,7 +231,6 @@ Tom estaba un poco triste por despedirse del perro, pero estaba feliz de que hub
       visit: "visitar",
       anytime: "cuando",
       wanted: "quisiera",
-      the: "el-la"
     },
     read_time: 5,
     image_url: "https://via.placeholder.com/100",
@@ -354,7 +367,6 @@ Emma se conmovió por la consideración de su abuela. Se puso el collar y sinti�
       memories: "recuerdos",
       always: "siempre",
       treasure: "atesoraría",
-      the: "el-la"
     },
     read_time: 7,
     image_url: "https://via.placeholder.com/100",
@@ -583,7 +595,6 @@ El rostro de Mark palideció mientras se volvía hacia Julia. "Hay algunas cosas
       left: "dejado",
       behind: "atrás",
       forever: "para siempre",
-      the: "el-la"
     },
     read_time: 10,
     image_url: "https://via.placeholder.com/100",
@@ -862,12 +873,16 @@ Lo que ella no podía saber era que su avance pronto atraería la atención de i
       ideas: "ideas",
       secrets: "secretos",
       used: "usarse",
-      the: "el-la"
     },
     read_time: 12,
     image_url: "https://via.placeholder.com/100",
   },
 ];
+
+// Load translations into the global dictionary
+sampleStories.forEach(story => {
+  globalDictionary.loadTranslations(story.word_translations);
+});
 
 export async function getStoriesByLevel(level: string): Promise<Story[]> {
   // Simulate a database query delay

@@ -6,26 +6,18 @@ import React, {useState} from "react";
 interface StoryCardProps {
   title: string;
   englishText: string;
-  spanishText: string;
+  translationMap: { [key: string]: string };
 }
 
-const StoryCard: React.FC<StoryCardProps> = ({title, englishText, spanishText}) => {
+const StoryCard: React.FC<StoryCardProps> = ({title, englishText, translationMap}) => {
   const [highlightedWord, setHighlightedWord] = useState<string | null>(null);
 
   const handleWordClick = (word: string) => {
     setHighlightedWord(word);
   };
 
-  // Simple translation logic - replace with a more robust solution if needed
   const getTranslation = (word: string) => {
-    const englishWords = englishText.split(/\s+/);
-    const spanishWords = spanishText.split(/\s+/);
-    const wordIndex = englishWords.indexOf(word);
-
-    if (wordIndex !== -1 && wordIndex < spanishWords.length) {
-      return spanishWords[wordIndex];
-    }
-    return "Translation not found";
+    return translationMap[word] || "Translation not found";
   };
 
   return (
@@ -41,7 +33,7 @@ const StoryCard: React.FC<StoryCardProps> = ({title, englishText, spanishText}) 
             {englishText.split(/\s+/).map((word, index) => (
               <span
                 key={index}
-                className="cursor-pointer hover:bg-teal-100"
+                className="cursor-pointer hover:bg-accent/20 rounded-md px-1"
                 onClick={() => handleWordClick(word)}
               >
                 {word}{" "}

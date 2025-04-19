@@ -8,12 +8,45 @@ const StoryList: React.FC = () => {
     {
       title: "The Little Cat",
       englishText: "Once upon a time, there was a little cat. The cat liked to play in the garden.",
-      spanishText: "Había una vez, un pequeño gato. Al gato le gustaba jugar en el jardín."
+      translationMap: {
+        "Once": "Había",
+        "upon": "una",
+        "a": "vez",
+        "time,": "vez,",
+        "there": "había",
+        "was": "era",
+        "little": "pequeño",
+        "cat.": "gato.",
+        "The": "Al",
+        "cat": "gato",
+        "liked": "gustaba",
+        "to": "de",
+        "play": "jugar",
+        "in": "en",
+        "the": "el",
+        "garden.": "jardín."
+      }
     },
     {
       title: "The Big Dog",
       englishText: "Once upon a time, there was a big dog. The dog liked to eat a lot.",
-      spanishText: "Había una vez, un perro grande. Al perro le gustaba comer mucho."
+      translationMap: {
+        "Once": "Había",
+        "upon": "una",
+        "a": "vez",
+        "time,": "vez,",
+        "there": "había",
+        "was": "era",
+        "big": "grande",
+        "dog.": "perro.",
+        "The": "Al",
+        "dog": "perro",
+        "liked": "gustaba",
+        "to": "de",
+        "eat": "comer",
+        "a": "mucho",
+        "lot.": "mucho."
+      }
     }
   ];
 
@@ -24,7 +57,7 @@ const StoryList: React.FC = () => {
           key={index}
           title={story.title}
           englishText={story.englishText}
-          spanishText={story.spanishText}
+          translationMap={story.translationMap}
         />
       ))}
     </div>

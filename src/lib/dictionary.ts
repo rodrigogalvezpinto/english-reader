@@ -1,13 +1,11 @@
 'use server';
 
 /**
- * @fileOverview Manages a global dictionary of words and translations.
+ * @fileOverview Manages a dictionary of words and translations.
  *
  * Exports:
  *   - Dictionary: A class for handling word translations with case-insensitivity.
- *   - globalDictionary: An instance of the Dictionary class used to store all words and translations.
  */
-
 
 
 class Dictionary {
@@ -60,21 +58,13 @@ class Dictionary {
   }
 }
 
-// Initialize a global dictionary instance
-const initialGlobalDictionary: { [key: string]: string } = {
-  // Add common words here
-  the: 'el/la',
-  is: 'es',
-  my: 'mi',
-  i: 'yo',
-  me: 'mi',
-  and: 'y',
-  a: 'un/una',
-  to: 'a',
-};
+const initialGlobalDictionary: { [key: string]: string } = {};
+// const globalDictionary = new Dictionary(initialGlobalDictionary);
 
-const globalDictionary = new Dictionary(initialGlobalDictionary);
+async function createGlobalDictionary() {
+  return new Dictionary(initialGlobalDictionary);
+}
+
+const globalDictionary = await createGlobalDictionary();
 
 export { Dictionary, globalDictionary };
-
-    

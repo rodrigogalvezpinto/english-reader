@@ -7,8 +7,7 @@
  *   - getStoriesByLevel: Retrieves stories based on difficulty level.
  *   - getStoryById: Retrieves a single story by its ID.
  */
-
-import {globalDictionary} from '@/lib/dictionary';
+import { Dictionary, globalDictionary } from '@/lib/dictionary';
 
 export interface Story {
   id: number;
@@ -70,11 +69,30 @@ Por la tarde, comenzó a llover. Sarah y su perro se fueron a casa. Estaban cans
       home: "casa",
       tired: "cansados",
       good: "buen",
-      it: "eso",
-      was: "era",
-      a: "un",
-      the: "el-la",
-      and: "y"
+	  and: "y",
+	  it: "eso",
+	  was: "era",
+	  a: "un",
+	  the: "el-la",
+	  sarah: "sarah",
+	  went: "fue",
+	  to: "a",
+	  with: "con",
+	  her: "su",
+	  s: "es",
+	  around: "alrededor",
+	  on: "en",
+	  after: "después",
+	  felt: "sintió",
+	  she: "ella",
+	  had: "había",
+	  brought: "traído",
+	  some: "algo",
+	  gave: "dio",
+	  in: "en",
+	  they: "ellos",
+	  but: "pero",
+	  at: "a",
     },
     read_time: 3,
     image_url: "https://via.placeholder.com/100",
@@ -130,16 +148,23 @@ Tengo diez años. Voy a la escuela todos los días. Me gusta leer libros y jugar
       books: "libros",
       football: "fútbol",
       happy: "feliz",
-      this: "este",
-      is: "es",
-      my: "mi",
-      there: "hay",
-      are: "son",
-      in: "en",
-      and: "y",
-      me: "yo",
-      i: "yo"
-    },
+	  this: 'este',
+	  is: 'es',
+	  my: 'mi',
+	  there: 'hay',
+	  are: 'son',
+	  in: 'en',
+	  and: 'y',
+	  me: 'yo',
+	  he: 'él',
+	  she: 'ella',
+	  a: 'un',
+	  than: 'que',
+	  i: 'yo',
+	  am: 'soy',
+	  to: 'a',
+	  we: 'nosotros',
+	    },
     read_time: 2,
     image_url: "https://via.placeholder.com/100",
   },
@@ -879,9 +904,18 @@ Lo que ella no podía saber era que su avance pronto atraería la atención de i
   },
 ];
 
+async function loadTranslations(story: Story): Promise<void> {
+  Object.keys(story.word_translations).forEach(word => {
+    const lowerWord = word.toLowerCase();
+    const existingTranslation = globalDictionary.getTranslation(lowerWord);
+    if (!existingTranslation) {
+      globalDictionary.addTranslation(lowerWord, story.word_translations[word]);
+    }
+  });
+}
 // Load translations into the global dictionary
 sampleStories.forEach(story => {
-  globalDictionary.loadTranslations(story.word_translations);
+  loadTranslations(story);
 });
 
 export async function getStoriesByLevel(level: string): Promise<Story[]> {

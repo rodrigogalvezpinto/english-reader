@@ -14,7 +14,6 @@ import {
 import React, { useState } from "react";
 import { Story } from "@/services/story-service";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { globalDictionary } from "@/lib/dictionary";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -37,7 +36,7 @@ const StoryCard: React.FC<StoryCardProps> = ({ story }) => {
   };
 
   const getTranslation = (word: string) => {
-    const translation = globalDictionary.getTranslation(word);
+    const translation = story.word_translations[word.toLowerCase()];
     return translation || "Translation not found";
   };
 

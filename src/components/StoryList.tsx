@@ -1,63 +1,28 @@
 "use client";
 
 import StoryCard from "@/components/StoryCard";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getStoriesByLevel } from "@/services/story-service";
+import { Story } from "@/services/story-service";
 
 const StoryList: React.FC = () => {
-  const stories = [
-    {
-      title: "The Little Cat",
-      englishText: "Once upon a time, there was a little cat. The cat liked to play in the garden.",
-      translationMap: {
-        "Once": "Había",
-        "upon": "una",
-        "a": "vez",
-        "time,": "vez,",
-        "there": "había",
-        "was": "era",
-        "little": "pequeño",
-        "cat.": "gato.",
-        "The": "El/La",
-        "cat": "gato",
-        "liked": "gustaba",
-        "to": "de",
-        "play": "jugar",
-        "in": "en",
-        "the": "el/la",
-        "garden.": "jardín."
-      }
-    },
-    {
-      title: "The Big Dog",
-      englishText: "Once upon a time, there was a big dog. The dog liked to eat a lot.",
-      translationMap: {
-        "Once": "Había",
-        "upon": "una",
-        "a": "vez",
-        "time,": "vez,",
-        "there": "había",
-        "was": "era",
-        "big": "grande",
-        "dog.": "perro.",
-        "The": "El/La",
-        "dog": "perro",
-        "liked": "gustaba",
-        "to": "de",
-        "eat": "comer",
-        "a": "mucho",
-        "lot.": "mucho."
-      }
-    }
-  ];
+  const [stories, setStories] = useState<Story[]>([]);
+
+  useEffect(() => {
+    const fetchStories = async () => {
+      const stories = await getStoriesByLevel("a1");
+      setStories(stories);
+    };
+
+    fetchStories();
+  }, []);
 
   return (
     <div>
       {stories.map((story, index) => (
         <StoryCard
           key={index}
-          title={story.title}
-          englishText={story.englishText}
-          translationMap={story.translationMap}
+          story={story}
         />
       ))}
     </div>

@@ -13,17 +13,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import React, { useState } from "react";
+import { Story } from "@/services/story-service";
 
 interface StoryCardProps {
-  title: string;
-  englishText: string;
-  translationMap: { [key: string]: string };
+  story: Story;
 }
 
 const StoryCard: React.FC<StoryCardProps> = ({
-  title,
-  englishText,
-  translationMap,
+  story,
 }) => {
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
 
@@ -32,13 +29,13 @@ const StoryCard: React.FC<StoryCardProps> = ({
   };
 
   const getTranslation = (word: string) => {
-    return translationMap[word] || "Translation not found";
+    return story.word_translations[word] || "Translation not found";
   };
 
   return (
     <Card className="mb-4">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle>{story.title}</CardTitle>
         <CardDescription>
           Tap on any word to see its translation
         </CardDescription>
@@ -47,7 +44,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
         <div>
           <h3 className="text-lg font-semibold mb-2">English</h3>
           <p>
-            {englishText.split(/\s+/).map((word, index) => (
+            {story.content.split(/\s+/).map((word, index) => (
               <Popover key={index}>
                 <PopoverTrigger asChild>
                   <span
